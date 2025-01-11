@@ -7,7 +7,9 @@ dotenv.config({
 
 const app = express();
 
-dbConnect();
+dbConnect()
+.then()
+.catch((error)=>{console.log("Database connection failed ",error)})
 
 
 
