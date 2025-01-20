@@ -170,7 +170,7 @@ const getPlaylistById = asyncHandler(async (req, res) => {
 
 const addVideoToPlaylist = asyncHandler(async (req, res) => {
     const {playlistId, videoId} = req.params;
-    if([playlistId, videoId].some(val => typeof val !== 'string' || val.trim() === "")){
+    if([playlistId, videoId].some(val => val?.trim() === "")){
         throw new ApiError(400,"Any one field is required")
     }
     if(!(isValidObjectId(playlistId)) || !(isValidObjectId(videoId))){
@@ -195,7 +195,7 @@ const addVideoToPlaylist = asyncHandler(async (req, res) => {
 const removeVideoFromPlaylist = asyncHandler(async (req, res) => {
     const {playlistId, videoId} = req.params
     // TODO: remove video from playlist
-    if([playlistId, videoId].some(val => typeof val !== 'string' || val.trim() === "")){
+    if([playlistId, videoId].some(val => val?.trim() === "")){
         throw new ApiError(400,"Any one field is required")
     }
     if(!(isValidObjectId(playlistId)) || !(isValidObjectId(videoId))){
@@ -235,7 +235,7 @@ const deletePlaylist = asyncHandler(async (req, res) => {
 const updatePlaylist = asyncHandler(async (req, res) => {
     const {playlistId} = req.params
     const {name, description} = req.body
-    if(!name && !description){
+    if([name,description].some((val)=>val?.trim()==="")){
         throw new ApiError(400,"Any one field is required")
     }
     //TODO: update playlist
